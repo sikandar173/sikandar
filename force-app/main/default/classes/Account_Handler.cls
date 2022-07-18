@@ -1,8 +1,8 @@
 public class Account_Handler {
     
     public Static list<Account> ManagingTriggers(list<contact>listnew){
-            set<Id> setList=new set<Id>();
-        if(listnew!=null){
+        set<Id> setList=new set<Id>();
+        if(!listnew.isEmpty()){
             for(contact c:listnew)
             {
                 setList.add(c.AccountId);
@@ -19,7 +19,7 @@ public class Account_Handler {
     //method for deleting contact when it goes greather than 5 
     
     
-    public static void insertTriggerCall(List<contact> listnew){
+    public static void triggerOnBeforeInsert(List<contact> listnew){
         list<Account>accounts=ManagingTriggers(listnew);
         list<Contact> conVar=new list<Contact>();
         for(Account acc:accounts){
@@ -34,8 +34,8 @@ public class Account_Handler {
     
     //method for update contact count should be decreased
     
-    public static void deleteTriggerCall(List<contact> listold){
-         list<Account>accounts=ManagingTriggers(listold);
+    public static void triggerOnDelete(List<contact> listold){
+        list<Account>accounts=ManagingTriggers(listold);
         list<Account> conVar=new list<Account>();
         
         for(Account acc:accounts){
@@ -46,9 +46,9 @@ public class Account_Handler {
     }
     //method for counting contact 
     
-    public static void triggerCall(List<contact> listnew){
+    public static void triggerOnInsert(List<contact> listnew){
         
-       list<Account>accounts=ManagingTriggers(listnew);
+        list<Account>accounts=ManagingTriggers(listnew);
         list<contact> conVar=new list<contact>();
         for(Account acc:accounts)
         {
