@@ -1,0 +1,50 @@
+<aura:component  controller = "ApexClassForDelete" 
+        implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+       <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+        <aura:attribute name="Acclist"  type="Key_Contact__c[]"/>
+          <div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+              <thead>
+                <tr class="slds-line-height_reset">
+                   <th class="slds-text-title_caps" scope="col">
+                      <div class="slds-truncate" title="AccountId">Name</div>
+                    </th>
+               <th class="slds-text-title_caps" scope="col">
+                   <div class="slds-truncate" title="Account Name">Email</div>
+                    </th>
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Account Site">Mobile</div>
+                     </th>
+                
+                    <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Edit">Button</div>
+                         </th>
+                        
+              </tr>
+            </thead>
+           <tbody>
+                 <aura:iteration items="{!v.Acclist}" var="item" >
+                   <tr class="slds-hint-parent">
+                     
+                   <td data-label="Account Name">
+                         <div class="slds-truncate" title="{!item.Name}">{!item.Name}</div>
+                      </td>
+                  <td data-label="Account Site">
+                        <div class="slds-truncate" title="{!item.Site}">{!item.Email__c}</div>
+                     </td>
+                     <td data-label="Account Site">
+                        <div class="slds-truncate" title="{!item.Site}">{!item.Mobile__c}</div>
+                     </td>
+                  
+            <td data-label="icon" class="slds-col slds-size_1-of-12" onclick="{!c.edit}" id="{!item.Id}">
+                          <lightning:icon iconName="utility:edit" size="small" />
+                </td><td data-label="icon" class="slds-col slds-size_1-of-12" onclick="{!c.delete}" id="{!item.Id}">
+                    <lightning:icon iconName="utility:delete" size="small" />
+                </td>
+                
+                  </tr>
+              </aura:iteration>
+          </tbody>
+          </table>
+      </div>
+  </aura:component>
