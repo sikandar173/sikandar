@@ -1,0 +1,68 @@
+<aura:component controller ="NewApexForEdit" 
+        implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+       <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+       <aura:attribute name="recSelectId" type="String" default=""/>
+        <aura:attribute name="conlist"  type="Key_Contact__c[]"/>
+        <div class="slds-var-p-horizontal_medium">
+            <table class="slds-table slds-table--bordered slds-table--col-bordered" style="border-collapse:collapse;">
+                <thead> 
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>phone</th>                     
+                        <th>button</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.conlist}" var="wrapVar" indexVar="index">
+                        <tr id="{!wrapVar.recSelectId}">
+                            <aura:if isTrue="{!wrapVar.editMode}"> 
+                                <td><ui:inputText aura:id="studentName"  value="{!wrapVar.studentName}"/></td>
+                                <aura:set attribute="else">
+                                    <td>{!wrapVar.Name}</td>
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!wrapVar.editMode}"> 
+                                <td><ui:inputTextArea aura:id="addressId" value="{!wrapVar.Email__c}" rows="2"/></td>
+                                <aura:set attribute="else">
+                                    <td>{!wrapVar.Email__c}</td>
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!wrapVar.editMode}"> 
+                                <td><ui:inputEmail aura:id="emailId" value="{!wrapVar.studentEmail}"/></td>
+                                <aura:set attribute="else">
+                                    <td>{!wrapVar.Mobile__c}</td>
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!wrapVar.editMode}"> 
+                                 <td>                                
+                                    <button class="slds-button" onclick="{!c.saveEditedTalent}"  title="Save"
+                                                                        data-sfid="{!wrapVar.recSelectId}" 
+                                                                        id="{!wrapVar.recSelectId}"
+                                                                        data-index="{!index}">save</button>
+                                    
+                                    <button class="slds-button" onclick="{!c.cancelEdit}"  title="Cancel" 
+                                                                        data-sfid=""
+                                                                        data-index="{!index}">cancel</button>
+                                    
+                                </td> 
+                            <aura:set attribute="else"> 
+                                <td> 
+                                    <button class="slds-button"  onclick="{!c.editTalent}"  label="Edit"
+                                                                        data-sfid="{!wrapVar.recSelectId}"
+                                                                        id="{!wrapVar.recSelectId}"
+                                                                        data-index="{!index}">Edit</button>
+                                    
+                                    <button class="slds-button" onclick="{!c.deleteRowId}" label="Delete"  
+                                                                       data-sfid="{!wrapVar.recSelectId}"
+                                                                        data-index="{!index}">Delete</button>
+                                    
+                                </td>  
+                            </aura:set>
+                        </aura:if>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>           
+      </div>
+  </aura:component>
