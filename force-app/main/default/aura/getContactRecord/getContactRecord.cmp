@@ -1,0 +1,64 @@
+<aura:component controller="ApexForGetKeyContact"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+                access="global" >
+     <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+     <aura:attribute name="conlist" type="List" />
+    <aura:attribute name="openModel" type="Boolean" default="false" />
+    <aura:attribute name="getContact" type="contact"/>
+    <aura:attribute name="contId" type="String"/>
+    <div class="slds">
+    <table class="slds-table slds-table_bordered slds-table_striped">
+        <thead>
+           
+            <tr>
+                <th scope="col"><span class="slds-truncate">Name</span></th>
+                 <th scope="col"><span class="slds-truncate">Email</span></th>
+                <th scope="col"><span class="slds-truncate">Phone</span></th>
+                <th scope="col"><span class="slds-truncate">button</span></th>
+            
+            </tr>
+        </thead>
+         <aura:iteration items="{!v.conlist}" var="con">
+        <tbody>
+            <tr>
+                <td>{!con.Name}</td>
+                <td>{!con.Email}</td>
+                <td>{!con.mobile}</td>
+                <td><button class="slds-button slds-button_brand" onclick="{!c.editContact}" data-conId="{!con.Id}">Edit</button></td>
+            </tr>
+        </tbody>
+           </aura:iteration>
+    </table>
+        <aura:if isTrue="{!v.openModel}">
+           <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="model-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                     <header class="slds-modal__header">
+                        
+                          <lightning:buttonIcon iconName="utility:close"
+                                                onclick="{!c.closeCreateModel}"
+                                               alternativeText="close"
+                                               variant="bare-inverse"
+                                               class="slds-model__close"/>
+                         <h2 id="model-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit contact</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:input type="text" aura:Id="name" label="enter name" value="{!v.getContact.Name}"/>
+                     <lightning:input type="text" aura:Id="email" label="enter email" value="{!v.getContact.Email}"/>
+                        <lightning:input type="text" aura:Id="phone" label="enter phone" value="{!v.getContact.Phone}"/>
+                                      
+                    </div>
+                    <footer>
+                        <lightning:button variant="neutral"
+                                          label="cancel"
+                                          title="cancel"
+                                          onclick="{!c.closeCreateModel}"/>
+                         <lightning:button variant="brand"
+                                          label="save"
+                                          title="save"
+                                          onclick="{!c.saveModel}"/>
+                    </footer>
+               </div>
+            </section>
+        </aura:if>
+    </div>
+</aura:component>
