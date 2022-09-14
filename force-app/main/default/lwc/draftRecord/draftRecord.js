@@ -76,10 +76,14 @@ export default class DraftRecord extends LightningElement {
      }
 
 connectedCallback(){
+   // this.showModel=true;
    returnDraft()
-   .then(result=>
-      {
-      this.showModel=true;
+   .then(result=>{ 
+       console.log('result of connected call back',JSON.parse(result))
+    this.data=JSON.parse(result)
+      if(this.data!=null){
+         this.showModel=true; 
+     
       this.returndata=JSON.parse(result);
       console.log('returndata========',this.returndata);
       this.subject=this.returndata.subject;
@@ -87,7 +91,7 @@ connectedCallback(){
       this.newAction=this.returndata.newAction;
       this.dealPartner=this.returndata.dealPartner;
       this.comment=this.comment;
-
+     } 
    })
    .catch(error=>
    {
@@ -248,9 +252,16 @@ connectedCallback(){
      
    })
   .catch(error=>{
-console.log('may be error',error);
+     console.log('may be error',error);
+     this.showModel=false;
+     clearInterval(this.countDown);
+     this.subject=null;
+        this.newAction=null;
+        this.dealPartner=null;
+        this.activityDate=null;
+        this.comment=null;
   });
-   
+ 
   }
 
 
